@@ -1,0 +1,16 @@
+---
+import Layout from '@layouts/Layout.astro';
+import CharacterList from '@components/Characters.jsx';
+---
+
+<Layout title="Rick and Morty - Characters">
+    <main class="min-h-screen pt-24 px-4 pb-8 bg-gray-900">
+      <div class="fixed inset-0 bg-gradient-to-b from-blue-900 to-black -z-10"></div>
+      
+      <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-bold text-center text-cyan-400 mb-8">Rick and Morty Characters</h1>
+          <CharacterList client:load />
+      </div>
+    </main>
+  </Layout>
+  
