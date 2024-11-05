@@ -105,14 +105,14 @@ export default function CharacterList() {
   return (
     <>
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
-          <select
+        <div className="flex flex-col md:flex-col lg:justify-between items-center gap-4 mb-8">
+          <select 
             value={statusFilter}
             onChange={(e) => {
               setStatusFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="px-4 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 bg-gray-700 lg:w-full text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Characters</option>
             <option value="alive">Alive</option>

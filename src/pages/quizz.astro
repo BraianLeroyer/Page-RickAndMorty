@@ -1,0 +1,168 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Footer from "@components/Footer.astro";
+import data from "../data/quizRickandMorty.json";
+---
+<Layout title="Rick and Morty - Quiz">
+    <main>
+        <div class="max-w-4xl mx-auto pt-20">
+            <h1 class="text-4xl md:text-5xl font-bold mb-8 text-center text-cyan-400">Rick and Morty Quiz</h1>
+            <div id="quiz-app" data-questions={JSON.stringify(data.questions)}>
+            </div>
+        </div>
+    </main>
+<Footer />
+</Layout>
+<script>
+
+import confetti from "canvas-confetti";
+
+class Quiz {
+        questions: any[];
+        currentQuestion: number;
+        score: number;
+        selectedAnswer: string;
+
+      constructor(private container: HTMLElement, questions: any[]) {
+            this.questions = questions;
+            this.currentQuestion = 0;
+            this.score = 0;
+            this.selectedAnswer = "";
+            this.init();
+        }
+      
+        init() {
+            this.render();
+        }
+
+        handleAnswerClick(answer: string) {
+            this.selectedAnswer = answer;
+            this.render();
+        }
+
+        handleNextQuestion() {
+            if (this.questions[this.currentQuestion].answer) {
+                this.score = this.selectedAnswer === this.questions[this.currentQuestion].answer ? this.score + 1 : this.score;
+                console.log(this.score)
+
+            }
+
+            this.currentQuestion++;
+            this.selectedAnswer = "";
+
+            if (this.currentQuestion < this.questions.length) {
+                this.render();
+            } else {
+                this.renderScore();
+            }
+        }
+
+        resetQuiz() {
+            this.currentQuestion = 0;
+            this.score = 0;
+            this.selectedAnswer = "";
+            this.render();
+        }
+
+        renderScore() {
+            this.container.innerHTML = `
+						<div class="bg-grey rounded-lg shadow-lg p-8 text-center">
+                             ${this.score === this.questions.length ? confetti() : ""}
+							<h2 class="text-2xl font-bold mb-4">Quiz Complete!</h2>
+                            <p class="text-lg text-gray-500 mb-6">
+                                You scored ${this.score}/${this.questions.length}
+                                
+							<button
+								id="reset-quiz"
+								class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+							>
+								Try Again
+							</button>
+						</div>
+					`;
+            const resetButton = document.getElementById("reset-quiz");
+            if (resetButton) {
+                resetButton.addEventListener("click", () => this.resetQuiz());
+            }
+        }
+
+        render() {
+            const question = this.questions[this.currentQuestion];
+
+            this.container.innerHTML = `
+						<div class="bg-green rounded-lg shadow-lg p-8">
+							<div class="mb-6">
+								<span class="text-2xl lg:justify-center  m-auto text-white">
+									Question ${this.currentQuestion + 1}/${this.questions.length}
+								</span>
+							</div>
+							
+							<div class="flex flex-col md:flex-row gap-8 items-center mb-6">
+								<img
+									src="${question.image}"
+									alt="Question"
+									class="w-48 h-48 rounded-lg shadow-md"
+								/>
+								<h3 class="text-xl font-semibold">${question.question}</h3>
+							</div>
+
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+								${question.options
+                                    .map(
+                                        (option: string) => `
+									<button
+										class="p-4 rounded-lg text-left transition-colors ${
+                                            this.selectedAnswer === option
+                                                ? "bg-green-500 text-white"
+                                                : "bg-gray-black hover:bg-green-300"
+                                        }"
+										data-answer="${option}"
+									>
+										${option}
+									</button>
+								`,
+                                    )
+                                    .join("")}
+							</div>
+
+							<button
+								id="next-question"
+								${!this.selectedAnswer ? "disabled" : ""}
+								class="w-full py-3 rounded-lg transition-colors ${
+                                    this.selectedAnswer
+                                        ? "bg-green-500 text-white hover:bg-green-600"
+                                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                }"
+							>
+								${this.currentQuestion === this.questions.length - 1 ? "Finish Quiz" : "Next Question"}
+							</button>
+						</div>
+					`;
+
+            const answerButtons =
+                this.container.querySelectorAll("[data-answer]");
+            answerButtons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    this.handleAnswerClick((button as HTMLElement).dataset.answer as string);
+                });
+            });
+
+            const nextButton = document.getElementById("next-question");
+            if (nextButton) {
+                nextButton.addEventListener("click", () => {
+                    if (this.selectedAnswer) {
+                        this.handleNextQuestion();
+                    }
+                });
+            }
+        }
+    }
+
+    const quizContainer = document.getElementById("quiz-app");
+    if (quizContainer && quizContainer.dataset.questions) {
+        const questions = JSON.parse(quizContainer.dataset.questions);
+        new Quiz(quizContainer, questions);
+    } else {
+        console.error("Quiz container or questions data not found.");
+    }
+</script>

@@ -1,0 +1,40 @@
+{
+    "questions": [
+      {
+        "id": 1,
+        "question": "What's the name of Rick's flying vehicle?",
+        "image": "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+        "options": [
+          "Space Cruiser",
+          "Flying Saucer",
+          "Space Car",
+          "Dimension Hopper"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "id": 2,
+        "question": "What's Morty's full name?",
+        "image": "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+        "options": [
+          "Mortimer Smith",
+          "Morton Smith",
+          "Morty Sanchez",
+          "Morty Smith"
+        ],
+        "correctAnswer": 4
+      },
+      {
+        "id": 3,
+        "question": "What's the name of the family's alien parasitic dog?",
+        "image": "https://rickandmortyapi.com/api/character/avatar/12.jpeg",
+        "options": [
+          "Snowball",
+          "Snuffles",
+          "Spike",
+          "Max"
+        ],
+        "correctAnswer": 2
+      }
+    ]
+  }
