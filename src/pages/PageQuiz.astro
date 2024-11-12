@@ -1,0 +1,125 @@
+---
+import Footer from "@components/Footer.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Quiz init Rick and Morty">
+  
+<section class="quiz-section">
+  <div class="content-wrapper">
+    <img 
+      src="Rick-and-morty-hero.png" 
+      alt="Pixel art character" 
+      class="quiz-image"
+    />
+    <div class="text-content">
+      <h2 class="title text-cyan-600 font-bold">Rick and Morty Quiz Adventure</h2>
+      <p class="description">
+        Test your knowledge about the universe of Rick and Morty!
+
+      </p>
+
+      <a class="inline-flex items-center pb-16 gap-x-1 text-sm text-green-500 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500" href="/quizz">
+        Start Quiz
+        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+<Footer />
+
+</Layout>
+<style>
+  .quiz-section {
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    margin: 2rem 0;
+  }
+
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .quiz-image {
+    width: 500px;
+    height: 300px;
+    box-shadow: 0 0 20px rgba(var(--accent), 0.3);
+    animation: float 3s ease-in-out infinite;
+    
+  }
+
+  img{
+    mask-image: linear-gradient(black 80%, transparent);
+  }
+
+  .text-content {
+    flex: 1;
+    animation: fadeIn 1s ease-out;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: slideIn 0.5s ease-out;
+  }
+
+  .description {
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    animation: slideIn 0.7s ease-out;
+  }
+
+  .quiz-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)));
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    animation: slideIn 0.9s ease-out;
+  }
+
+  .quiz-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(var(--accent), 0.4);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .content-wrapper {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .quiz-image {
+      margin: 0 auto;
+    }
+  }
+</style>

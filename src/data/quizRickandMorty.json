@@ -10,7 +10,7 @@
           "Space Car",
           "Dimension Hopper"
         ],
-        "correctAnswer": 1
+        "correctAnswer":  "Space Cruiser"
       },
       {
         "id": 2,
@@ -22,7 +22,7 @@
           "Morty Sanchez",
           "Morty Smith"
         ],
-        "correctAnswer": 4
+        "correctAnswer":  "Morty Smith"
       },
       {
         "id": 3,
@@ -34,7 +34,7 @@
           "Spike",
           "Max"
         ],
-        "correctAnswer": 2
+        "correctAnswer":  "Snuffles"
       }
     ]
   }
